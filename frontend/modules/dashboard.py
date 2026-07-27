@@ -12,12 +12,21 @@ def show():
     calls_done = 0
 
     stats = [
+<<<<<<< HEAD
     ("👥 Total Leads", total_leads, "c1"),
     ("🔥 Hot Leads", hot_leads, "c2"),
     ("⭐ Warm Leads", warm_leads, "c3"),
     ("📧 Emails Sent", emails_sent, "c4"),
     ("📞 Calls Done", calls_done, "c5"),
 ]
+=======
+        ("Total Leads", total_leads, "c1"),
+        ("Hot Leads", hot_leads, "c2"),
+        ("Warm Leads", warm_leads, "c3"),
+        ("Emails Sent", emails_sent, "c4"),
+        ("Calls Done", calls_done, "c5"),
+    ]
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
 
     cols = st.columns(len(stats))
     for col, (label, value, color_class) in zip(cols, stats):

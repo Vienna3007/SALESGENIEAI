@@ -5,7 +5,10 @@ def load_css():
     <style>
     html, body, [class*="css"] {
         font-family: 'Inter', 'Segoe UI', sans-serif;
+<<<<<<< HEAD
         font-size: 17px;
+=======
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
     }
     .stApp {
         background-color: #f7f3ee;
@@ -14,6 +17,7 @@ def load_css():
         background-color: rgba(0,0,0,0) !important;
     }
 
+<<<<<<< HEAD
     /* ---------- Hide sidebar entirely (unused) ---------- */
     section[data-testid="stSidebar"] {
         display: none !important;
@@ -48,22 +52,138 @@ def load_css():
         min-width: 44px;
         border-radius: 12px;
         background: #b5651d;
+=======
+    /* ---------- Sidebar brand block (avatar + name) ---------- */
+    .sidebar-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #ffffff;
+        border: 1px solid #ece3d8;
+        border-radius: 14px;
+        padding: 14px 16px;
+        margin-bottom: 16px !important;
+        box-shadow: 0 1px 3px rgba(92, 58, 33, 0.05);
+    }
+    .sidebar-brand-avatar {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #b5651d, #8a4b1f);
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
         font-weight: 700;
+<<<<<<< HEAD
         font-size: 16px;
+=======
+        font-size: 15px;
+    }
+    .sidebar-brand-text .name {
+        font-size: 15.5px;
+        font-weight: 700;
+        color: #3d2817;
+        line-height: 1.2;
+    }
+    .sidebar-brand-text .subtitle {
+        font-size: 11.5px;
+        color: #a3927e;
+        line-height: 1.2;
+    }
+
+    /* ---------- Sidebar section label ---------- */
+    .sidebar-section-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #b3a596;
+        margin: 4px 0 8px 4px;
+    }
+
+    /* ---------- Sidebar nav list (BrewMaster-style) ---------- */
+    section[data-testid="stSidebar"] div[data-testid="stVerticalBlockBorderWrapper"],
+    section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] {
+        gap: 0.25rem !important;
+    }
+    section[data-testid="stSidebar"] div[data-testid="element-container"],
+    section[data-testid="stSidebar"] div[data-testid="stElementContainer"] {
+        margin-bottom: 4px !important;
+        margin-top: 0 !important;
+    }
+    section[data-testid="stSidebar"] .stButton {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Base style for ALL sidebar nav buttons (inactive = secondary) */
+    section[data-testid="stSidebar"] .stButton > button {
+        width: 100%;
+        display: flex !important;
+        justify-content: flex-start !important;
+        text-align: left !important;
+        background: transparent !important;
+        border: none !important;
+        border-radius: 10px;
+        padding: 10px 14px !important;
+        font-weight: 600;
+        font-size: 14px;
+        color: #6b5745 !important;
+        box-shadow: none !important;
+    }
+    section[data-testid="stSidebar"] .stButton > button:hover {
+        background: #f4ead9 !important;
+        color: #8a4b1f !important;
+        transform: none;
+    }
+    section[data-testid="stSidebar"] .stButton > button p,
+    section[data-testid="stSidebar"] .stButton > button div {
+        width: 100%;
+        text-align: left !important;
+        justify-content: flex-start !important;
+        margin: 0 !important;
+    }
+
+    /* Active nav item = Streamlit's "primary" button type */
+    section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
+        background: #b5651d !important;
+        color: #ffffff !important;
+    }
+    section[data-testid="stSidebar"] .stButton > button[kind="primary"]:hover {
+        background: #9c5518 !important;
+        color: #ffffff !important;
+    }
+    section[data-testid="stSidebar"] .stButton > button[kind="primary"] p {
+        color: #ffffff !important;
+    }
+
+    /* ---------- Header banner ---------- */
+    .app-header {
+        background: #ffffff;
+        padding: 22px 30px;
+        border-radius: 14px;
+        margin-bottom: 26px;
+        border: 1px solid #ece3d8;
+        box-shadow: 0 2px 8px rgba(92, 58, 33, 0.06);
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
     }
     .app-header h1 {
         color: #4a2e1a;
         margin: 0;
+<<<<<<< HEAD
         font-size: 26px;
+=======
+        font-size: 24px;
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
         font-weight: 700;
         letter-spacing: -0.01em;
     }
     .app-header p {
         color: #8a7563;
+<<<<<<< HEAD
         margin: 2px 0 0 0;
         font-size: 15px;
         font-weight: 400;
@@ -98,6 +218,28 @@ def load_css():
     }
     .stat-label {
         font-size: 13px;
+=======
+        margin: 4px 0 0 0;
+        font-size: 13.5px;
+        font-weight: 400;
+    }
+
+    /* ---------- Stat cards ---------- */
+    .stat-card {
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 18px 20px;
+        box-shadow: 0 1px 3px rgba(92, 58, 33, 0.06);
+        border: 1px solid #ece3d8;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(92, 58, 33, 0.10);
+    }
+    .stat-label {
+        font-size: 12px;
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.04em;
@@ -106,7 +248,11 @@ def load_css():
     }
     .stat-value {
         color: #3d2817;
+<<<<<<< HEAD
         font-size: 30px;
+=======
+        font-size: 28px;
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
         font-weight: 700;
     }
     .stat-card.c1 .stat-value { color: #b5651d; }
@@ -118,6 +264,7 @@ def load_css():
     /* ---------- Lead cards ---------- */
     .lead-card {
         background: #ffffff;
+<<<<<<< HEAD
         border-radius: 10px;
         padding: 12px 16px;
         margin-bottom: 8px;
@@ -126,15 +273,36 @@ def load_css():
     }
     .lead-company {
         font-size: 17px;
+=======
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin-bottom: 10px;
+        border: 1px solid #ece3d8;
+        border-left: 4px solid #b5651d;
+        box-shadow: 0 1px 2px rgba(92, 58, 33, 0.05);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .lead-card:hover {
+        transform: translateX(3px);
+        box-shadow: 0 4px 12px rgba(92, 58, 33, 0.08);
+    }
+    .lead-company {
+        font-size: 15.5px;
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
         font-weight: 700;
         color: #3d2817;
     }
     .lead-meta {
+<<<<<<< HEAD
         font-size: 14px;
+=======
+        font-size: 13px;
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
         color: #8a7563;
         margin-top: 3px;
     }
 
+<<<<<<< HEAD
     /* ---------- Scrollbars ---------- */
     ::-webkit-scrollbar {
         width: 10px;
@@ -178,35 +346,53 @@ def load_css():
         margin: 0;
     }
 
+=======
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
     /* ---------- Badges ---------- */
     .badge {
         display: inline-block;
         padding: 3px 10px;
         border-radius: 999px;
+<<<<<<< HEAD
         font-size: 12px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.02em;
         margin-left: 6px;
+=======
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
     }
     .badge-hot { background: #fbe1dc; color: #c0392b; }
     .badge-warm { background: #faf0d7; color: #b7791f; }
     .badge-new { background: #f1e6da; color: #b5651d; }
     .badge-cold { background: #e3ede8; color: #2f6f4f; }
 
+<<<<<<< HEAD
     /* ---------- Buttons ---------- */
+=======
+    /* ---------- Buttons (main content area) ---------- */
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
     .stButton > button {
         border-radius: 8px;
         font-weight: 600;
         border: 1px solid #e0c9ac !important;
         background: #ffffff;
         color: #8a4b1f;
+<<<<<<< HEAD
         transition: all 0.12s ease;
+=======
+        transition: all 0.15s ease;
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
     }
     .stButton > button:hover {
         background: #b5651d;
         color: white;
         border-color: #b5651d !important;
+<<<<<<< HEAD
     }
     div[data-testid="stFormSubmitButton"] button {
         background: #b5651d !important;
@@ -227,6 +413,19 @@ def load_css():
     .stButton > button:disabled p {
         color: #b5651d !important;
         font-weight: 700 !important;
+=======
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(181, 101, 29, 0.25);
+    }
+    div[data-testid="stFormSubmitButton"] button {
+        background: #b5651d !important;
+        color: white !important;
+        border: none !important;
+    }
+    div[data-testid="stFormSubmitButton"] button:hover {
+        background: #8a4b1f !important;
+        box-shadow: 0 4px 10px rgba(181, 101, 29, 0.3);
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
     }
 
     /* ---------- Inputs ---------- */
@@ -238,7 +437,11 @@ def load_css():
     div[data-baseweb="textarea"] {
         background-color: #ffffff !important;
         color: #3d2817 !important;
+<<<<<<< HEAD
         border: 1px solid #e8ddd0 !important;
+=======
+        border: 1.5px solid #e8ddd0 !important;
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
         border-radius: 8px !important;
     }
     .stTextInput input:focus,
@@ -256,6 +459,19 @@ def load_css():
         font-weight: 700 !important;
     }
 
+<<<<<<< HEAD
+=======
+    /* ---------- Sidebar container ---------- */
+    section[data-testid="stSidebar"] {
+        background-color: #ffffff;
+        border-right: 1px solid #ece3d8;
+        padding-top: 10px;
+    }
+    section[data-testid="stSidebar"] * {
+        color: #5c3a21;
+    }
+
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
     /* ---------- Alert / Confirmation banners ---------- */
     .duplicate-alert {
         background: #fdf1e0;
@@ -263,6 +479,10 @@ def load_css():
         padding: 14px 18px;
         border-radius: 10px;
         margin-bottom: 15px;
+<<<<<<< HEAD
+=======
+        animation: shake 0.4s ease-in-out;
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
     }
     .duplicate-alert h4 {
         margin: 0 0 8px 0;
@@ -272,5 +492,15 @@ def load_css():
         margin: 2px 0;
         color: #5c3a00;
     }
+<<<<<<< HEAD
+=======
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-6px); }
+        50% { transform: translateX(6px); }
+        75% { transform: translateX(-4px); }
+        100% { transform: translateX(0); }
+    }
+>>>>>>> b4c743a0ab5aa6935c3e4719b56ed7dbef30884a
     </style>
     """, unsafe_allow_html=True)
