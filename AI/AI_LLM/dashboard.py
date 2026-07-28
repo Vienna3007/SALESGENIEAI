@@ -1,23 +1,22 @@
-def get_dashboard_stats():
+def get_dashboard_stats(leads):
+
+    total = len(leads)
+
+    hot = sum(1 for lead in leads if lead["score"] >= 80)
+
+    warm = sum(1 for lead in leads if 60 <= lead["score"] < 80)
+
+    cold = sum(1 for lead in leads if lead["score"] < 60)
+
+    avg = (
+        round(sum(lead["score"] for lead in leads) / total, 2)
+        if total else 0
+    )
 
     return {
-
-        "total_leads": 125,
-
-        "qualified_leads": 82,
-
-        "emails_generated": 98,
-
-        "companies_analyzed": 110,
-
-        "hot_leads": 38,
-
-        "warm_leads": 30,
-
-        "cold_leads": 14,
-
-        "conversion_rate": "43%",
-
-        "average_score": 78
-
+        "total_leads": total,
+        "hot_leads": hot,
+        "warm_leads": warm,
+        "cold_leads": cold,
+        "average_score": avg
     }

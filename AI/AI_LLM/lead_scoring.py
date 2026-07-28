@@ -7,61 +7,85 @@ def calculate_score(data: ScoreRequest):
     reasons = []
 
     # Company Size
-    if data.employees >= 1000:
-        score += 35
-        reasons.append("Large enterprise")
-    elif data.employees >= 500:
+    size = data.company_size.lower()
+
+    if "enterprise" in size:
         score += 25
-        reasons.append("Medium-large company")
-    elif data.employees >= 100:
+        reasons.append("Enterprise organization")
+
+    elif "large" in size:
+        score += 20
+        reasons.append("Large company")
+
+    elif "medium" in size:
         score += 15
-        reasons.append("Growing company")
+        reasons.append("Medium-sized company")
+
+    else:
+        score += 10
+
+    # Buying Probability
+
+    buying = data.buying_probability.lower()
+
+    if "high" in buying:
+        score += 25
+        reasons.append("High buying probability")
+
+    elif "medium" in buying:
+        score += 15
+
     else:
         score += 5
-        reasons.append("Small company")
 
-    # Industry
-    tech_industries = [
-        "Technology",
-        "Software",
-        "IT",
-        "Artificial Intelligence",
-        "Cloud",
-        "SaaS"
-    ]
+    # Growth Potential
 
-    if any(i.lower() in data.industry.lower() for i in tech_industries):
-        score += 30
-        reasons.append("Technology-focused industry")
-    else:
+    growth = data.growth_potential.lower()
+
+    if "high" in growth:
+        score += 20
+        reasons.append("High growth potential")
+
+    elif "medium" in growth:
         score += 10
-        reasons.append("Non-technology industry")
 
-    # Revenue
-    revenue = data.revenue.lower()
+    # Technology Maturity
 
-    if "billion" in revenue:
-        score += 35
-        reasons.append("High annual revenue")
-    elif "million" in revenue:
-        score += 25
-        reasons.append("Moderate annual revenue")
-    else:
+    tech = data.technology_maturity.lower()
+
+    if "advanced" in tech:
+        score += 15
+
+    elif "modern" in tech:
         score += 10
-        reasons.append("Limited revenue information")
+
+    # Market Position
+
+    market = data.market_position.lower()
+
+    if "leader" in market:
+        score += 15
+
+    elif "strong" in market:
+        score += 10
 
     score = min(score, 100)
 
     if score >= 80:
         category = "Hot Lead"
+
     elif score >= 60:
         category = "Warm Lead"
+
     else:
         category = "Cold Lead"
 
     return {
-        "company": data.company_name,
+
         "lead_score": score,
+
         "category": category,
+
         "reasons": reasons
+
     }
