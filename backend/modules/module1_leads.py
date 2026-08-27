@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 from typing import Optional
 from datetime import datetime
 
@@ -9,7 +9,8 @@ from database.models import Lead
 
 router = APIRouter(prefix="/leads", tags=["Leads"])
 
-# ---------- Pydantic Schemas ----------
+
+# ---------------- Pydantic Schemas ----------------
 
 class LeadCreate(BaseModel):
     name: str
@@ -20,6 +21,7 @@ class LeadCreate(BaseModel):
     status: Optional[str] = "New"
     notes: Optional[str] = None
 
+
 class LeadUpdate(BaseModel):
     name: Optional[str] = None
     company: Optional[str] = None
@@ -29,7 +31,10 @@ class LeadUpdate(BaseModel):
     status: Optional[str] = None
     notes: Optional[str] = None
 
+
 class LeadResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     name: str
     company: Optional[str]
@@ -40,14 +45,12 @@ class LeadResponse(BaseModel):
     notes: Optional[str]
     created_at: datetime
 
-    class Config:
-        from_attributes = True
 
+# ---------------- 1. Add Lead ----------------
 
-# ---------- 1. Add Lead ----------
 @router.post("/", response_model=LeadResponse)
 def add_lead(lead: LeadCreate, db: Session = Depends(get_db)):
-    # Check for duplicate email (only if an email was provided)
+
     if lead.email:
         existing = db.query(Lead).filter(Lead.email == lead.email).first()
         if existing:
@@ -56,59 +59,76 @@ def add_lead(lead: LeadCreate, db: Session = Depends(get_db)):
                 detail=f"A lead with email '{lead.email}' already exists (id={existing.id})"
             )
 
-    new_lead = Lead(**lead.dict())
+    new_lead = Lead(**lead.model_dump())
+
     db.add(new_lead)
     db.commit()
     db.refresh(new_lead)
+
     return new_lead
 
 
-# ---------- 2. Get All Leads (with search + pagination) ----------
+# ---------------- 2. Get All Leads ----------------
+
 @router.get("/", response_model=list[LeadResponse])
 def get_all_leads(
     db: Session = Depends(get_db),
-    name: Optional[str] = Query(None, description="Filter by name (partial match)"),
-    company: Optional[str] = Query(None, description="Filter by company (partial match)"),
-    status: Optional[str] = Query(None, description="Filter by exact status, e.g. 'New', 'Contacted'"),
-    skip: int = Query(0, ge=0, description="Number of records to skip"),
-    limit: int = Query(10, ge=1, le=100, description="Max number of records to return")
+    name: Optional[str] = Query(None),
+    company: Optional[str] = Query(None),
+    status: Optional[str] = Query(None),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(10, ge=1, le=100)
 ):
+
     query = db.query(Lead)
 
     if name:
         query = query.filter(Lead.name.ilike(f"%{name}%"))
+
     if company:
         query = query.filter(Lead.company.ilike(f"%{company}%"))
+
     if status:
         query = query.filter(Lead.status == status)
 
     return query.offset(skip).limit(limit).all()
 
 
-# ---------- 3. Get Lead by ID ----------
+# ---------------- 3. Get Lead By ID ----------------
+
 @router.get("/{lead_id}", response_model=LeadResponse)
 def get_lead(lead_id: int, db: Session = Depends(get_db)):
+
     lead = db.query(Lead).filter(Lead.id == lead_id).first()
+
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
+
     return lead
 
 
-# ---------- 4. Update Lead ----------
+# ---------------- 4. Update Lead ----------------
+
 @router.put("/{lead_id}", response_model=LeadResponse)
-def update_lead(lead_id: int, updated_data: LeadUpdate, db: Session = Depends(get_db)):
+def update_lead(
+    lead_id: int,
+    updated_data: LeadUpdate,
+    db: Session = Depends(get_db)
+):
+
     lead = db.query(Lead).filter(Lead.id == lead_id).first()
+
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
 
-    update_fields = updated_data.dict(exclude_unset=True)
+    update_fields = updated_data.model_dump(exclude_unset=True)
 
-    # If email is being changed, make sure no OTHER lead already has it
     if "email" in update_fields and update_fields["email"]:
         existing = db.query(Lead).filter(
             Lead.email == update_fields["email"],
             Lead.id != lead_id
         ).first()
+
         if existing:
             raise HTTPException(
                 status_code=400,
@@ -120,16 +140,21 @@ def update_lead(lead_id: int, updated_data: LeadUpdate, db: Session = Depends(ge
 
     db.commit()
     db.refresh(lead)
+
     return lead
 
 
-# ---------- 5. Delete Lead ----------
+# ---------------- 5. Delete Lead ----------------
+
 @router.delete("/{lead_id}")
 def delete_lead(lead_id: int, db: Session = Depends(get_db)):
+
     lead = db.query(Lead).filter(Lead.id == lead_id).first()
+
     if not lead:
         raise HTTPException(status_code=404, detail="Lead not found")
 
     db.delete(lead)
     db.commit()
+
     return {"message": f"Lead with id {lead_id} deleted successfully"}
